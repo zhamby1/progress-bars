@@ -1,27 +1,25 @@
-import React, {useState, useEffect}from "react";
-import {View, ActivityIndicator} from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, ActivityIndicator } from "react-native";
 import styles from "./styles";
 
-export default function loading(Wrapped){
-    return function LoadingWrapper(props){
-        const [loading,setLoading] = useState(true);
-        useEffect(() => {
-            const timer = setTimeout(() => {
-                setLoading(false);
-            }, 1000);
-          
-        }, []);
+export default function loading(Wrapped) {
+  return function LoadingWrapper(props) {
+    const [loading, setLoading] = useState(true);
 
-        if(loading){
-            return(
-                <View style={styles.container}>
-                    <ActivityIndicator size="large" />
-                </View>
-            )
-        }
+    useEffect(() => {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    }, []);
 
-        else{
-            return <Wrapped {...props} />;
-        }
+    if (loading) {
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator size="large" />
+        </View>
+      );
+    } else {
+      return <Wrapped {...props} />;
     }
+  };
 }
